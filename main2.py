@@ -20,6 +20,10 @@ try:
 except:
     pass
 
+
+
+
+
 tday = datetime.date.today()
 td = tday.strftime('%d/%m/%Y')
 tdd = int(tday.strftime('%d'))
@@ -92,6 +96,8 @@ while opc != "exit":
 
         with open('lista de eventos2.pkl', 'wb') as file:
             pickle.dump(eventos_dic, file)
+
+
     else:
         print("\nOpção inválida")
 

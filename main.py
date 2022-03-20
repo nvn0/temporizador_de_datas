@@ -1,6 +1,6 @@
 # Version with dataclasses
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import pickle
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,15 +11,51 @@ eventos_dic = {}
 eventos_array = []
 
 
-try:
+# try:
+#
+#     with open('lista de eventos.txt', 'r') as load_file:
+#         linec = load_file.readline().strip()
+#         for line in load_file:
+#             eventos_array.append(line)
+#         #print(eventos_array)
+# except:
+#     pass
 
-    with open('lista de eventos.txt', 'r') as load_file:
-        #linec = load_file.readline().replace(""","")
-        for line in load_file:
-            eventos_array.append(line)
-        #print(eventos_array)
-except:
-    pass
+# try:
+#     with open('lista de eventos.txt', 'r') as load_file:
+#         for line in load_file:
+#             eventos_array.append(line)
+#
+# except:
+#     pass
+
+
+
+# try:
+#     with open('lista de eventos.pkl', 'rb') as inp:
+#         eventos_array = pickle.load(inp)
+#         #print(eventos_array)
+# except:
+#     pass
+
+ficheiro = "lista de eventos.txt"
+
+if os.path.isfile(ficheiro):
+
+    f = open(ficheiro, "r")
+    linha = f.readline().strip()
+
+    while linha != "":
+        #aux = linha.split("/")
+        eventos_array.append(linha)
+        linha = f.readline().strip()
+    f.close()
+
+
+
+
+
+
 
 tday = datetime.date.today()
 td = tday.strftime('%d/%m/%Y')
@@ -38,16 +74,22 @@ print(tday.strftime('%d/%m/%Y'))
 
 
 # V1:
-@dataclass
+@dataclass(order=True)
 class evento:
     nome: str
     dia: int
     mes: int
-    ano: int
+    ano: int = field(repr=True)
+
+    def __post_init__(self):
+        self.sort_index = self.ano
 
 
 
 
+def save_object(obj, filename):
+    with open(filename, 'wb') as outp:  # Overwrites any existing file.
+        pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
 
 def o1(): # Adicionar evento
@@ -124,8 +166,9 @@ while opc != "exit":
 
         with open('lista de eventos.txt', 'w') as file:
             for i in eventos_array:
-                file.write(str(i))
+                file.write(str(i) + "\n")
 
+        # save_object(eventos_array, 'lista de eventos.pkl')
     else:
         print("\nOpção inválida")
 
