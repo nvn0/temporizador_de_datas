@@ -1,5 +1,6 @@
 # Version without classes
 
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -10,6 +11,14 @@ import datetime
 
 eventos_dic = {}
 eventos_array = []
+
+
+try:
+    with open('lista de eventos2.pkl', 'rb') as load_file:
+        eventos_dic = pickle.load(load_file)
+        #print(eventos_dic)
+except:
+    pass
 
 tday = datetime.date.today()
 td = tday.strftime('%d/%m/%Y')
@@ -53,9 +62,9 @@ def o2():  # Visualizar datas
 
     evento_mais_proximo = ""
 
-    for x in eventos_dic.values():
+    #for x in eventos_dic.values():
         #print(x)
-        if td - date(x):
+
             
 
 
@@ -81,12 +90,8 @@ while opc != "exit":
     elif opc == "exit":
         print("\nA sair...")
 
-        f = open(ficheiro, "w")
-        for p in eventos_dic:
-            #print(p)
-            f.write(p + " - " + str(eventos_dic[p][0]) + "\n")
-
-        f.close()
+        with open('lista de eventos2.pkl', 'wb') as file:
+            pickle.dump(eventos_dic, file)
     else:
         print("\nOpção inválida")
 

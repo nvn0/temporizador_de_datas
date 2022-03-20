@@ -1,5 +1,6 @@
 # Version with normal clases
 
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -9,6 +10,16 @@ import datetime
 
 eventos_dic = {}
 eventos_array = []
+
+
+try:
+    with open('lista de eventos3.pkl', 'rb') as load_file:
+        eventos_dic = pickle.load(load_file)
+        #print(eventos_dic)
+except:
+    pass
+
+
 
 tday = datetime.date.today()
 td = tday.strftime('%d/%m/%Y')
@@ -58,7 +69,10 @@ def o1(): # Adicionar evento
     a = int(input("Insira o ano do evento:"))
 
     x = Evento(nome, d, m, a)
-    eventos_array.append(x)
+    eventos_dic.update({nome:[d, m, a]})
+
+
+
     print("Evento adicionado!")
 
 
@@ -67,26 +81,28 @@ def o2(): # Visualizar datas
     print(eventos_dic)
     print(eventos_array)
 
-
+    print(eventos_array)
     evento_mais_proximo = ""
 
 
 
-    for evento in eventos_array:
-        if tdn > Evento.GetAno():
-            evento_mais_proximo = evento.nome
-            break
-        elif tdn == evento.ano:
-            if tdm > evento.mes:
-                evento_mais_proximo = evento.nome
-                break
-            elif tdm == evento.mes:
-                if tdd > evento.dia:
-                    evento_mais_proximo = evento.nome
-                    break
-            elif tdm < evento.mes:
-
-    print(evento_mais_proximo)
+    # for evento in eventos_array:
+    #     if tdn > Evento.GetAno():
+    #         evento_mais_proximo = evento.nome
+    #         break
+    #     elif tdn == evento.ano:
+    #         if tdm > evento.mes:
+    #             evento_mais_proximo = evento.nome
+    #             break
+    #         elif tdm == evento.mes:
+    #             if tdd > evento.dia:
+    #                 evento_mais_proximo = evento.nome
+    #                 break
+    #         elif tdm < evento.mes:
+    #             evento_mais_proximo = evento.nome
+    #
+    #
+    # print(evento_mais_proximo)
 
 
 
@@ -118,12 +134,9 @@ while opc != "exit":
     elif opc == "exit":
         print("\nA sair...")
 
-        f = open(ficheiro, "w")
-        for p in eventos_dic:
-            #print(p)
-            f.write(p + " - " + str(eventos_dic[p][0]) + "\n")
+        with open('lista de eventos3.pkl', 'wb') as file:
+            pickle.dump(eventos_dic, file)
 
-        f.close()
     else:
         print("\nOpção inválida")
 
