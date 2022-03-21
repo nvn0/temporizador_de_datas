@@ -135,7 +135,7 @@ def o2():  # Visualizar datas
     count = 1
     for e in nxev:
         dias = eventos_dic[e][3]
-        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias))
+        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
         count += 1
         #print(e, "dentro de", eventos_dic[e][3])
 
