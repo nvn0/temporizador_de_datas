@@ -6,7 +6,6 @@ import datetime
 import pickle
 import os
 import datetime
-
 import colorama
 from colorama import Back, Fore, Style
 
@@ -133,9 +132,12 @@ def o2():  # Visualizar datas
 
     print("\n")
 
+    count = 1
     for e in nxev:
         dias = eventos_dic[e][3]
-        print(Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias))
+        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias))
+        count += 1
+        #print(e, "dentro de", eventos_dic[e][3])
 
 
             
