@@ -116,7 +116,7 @@ def o2():  # Visualizar datas
     for i in eventos_dic:
         if eventos_dic[i][3] < eventos_dic[evento_mais_proximo][3]:
             evento_mais_proximo = i
-    print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]), "dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2])
+    print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip("00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
 
 
     next_eventos.sort()
@@ -135,7 +135,7 @@ def o2():  # Visualizar datas
     count = 1
     for e in nxev:
         dias = eventos_dic[e][3]
-        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
+        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias).rstrip("00:00:00"), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
         count += 1
         #print(e, "dentro de", eventos_dic[e][3])
 
