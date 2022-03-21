@@ -160,6 +160,8 @@ while opc != "exit":
         os.system(clear_command)
         print("Adicionar Evento")
         o1()
+    elif opc == "000":
+        exit()
     elif opc == "2":
         os.system(clear_command)
         print("Visualizar Eventos")
