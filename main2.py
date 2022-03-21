@@ -6,10 +6,13 @@ import datetime
 import pickle
 import os
 import datetime
+import platform
 import colorama
 from colorama import Back, Fore, Style
 
 colorama.init(autoreset=True)
+
+clear_command = "cls" if platform.system() == "Windows" else "clear"
 
 eventos_dic = {}
 
@@ -31,7 +34,7 @@ td = tday.strftime('%d/%m/%Y')
 tdd = int(tday.strftime('%d'))
 tdm = int(tday.strftime('%m'))
 tdn = int(tday.strftime('%Y'))
-print(tday.strftime('%d/%m/%Y'))
+#print(tday.strftime('%d/%m/%Y'))
 
 
 
@@ -54,9 +57,6 @@ def o1(): # Adicionar evento
 
 
     nome = input("Insira o nome do evento:")
-    #dta = input("Insira a data do evento(ex:20/08/2022):")
-
-    #eventos_dic.update({nome: [dta]})
     d = int(input("Insira o dia do evento:"))
     m = int(input("Insira o mes do evento:"))
     a = int(input("Insira o ano do evento:"))
@@ -140,8 +140,6 @@ def o2():  # Visualizar datas
         #print(e, "dentro de", eventos_dic[e][3])
 
 
-            
-
 
 
 
@@ -159,8 +157,12 @@ while opc != "exit":
     opc = input("\nEscolha uma opção: ")
 
     if opc == "1":
+        os.system(clear_command)
+        print("Adicionar Evento")
         o1()
     elif opc == "2":
+        os.system(clear_command)
+        print("Visualizar Eventos")
         o2()
     elif opc == "exit":
         print("\nA sair...")
@@ -176,14 +178,6 @@ while opc != "exit":
         f.close()
 
     else:
-        print(Fore.RED + "\nOpção inválida")
-
-
-
-
-
-
-
-
+        print(Fore.RED + "\nERRO! - Opção inválida")
 
 
