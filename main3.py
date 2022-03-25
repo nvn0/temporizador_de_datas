@@ -1,6 +1,6 @@
 # Version with normal clases
 
-import pickle
+import json
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -9,24 +9,16 @@ import datetime
 
 
 eventos_dic = {}
-eventos_array = []
-
-
-try:
-    with open('lista de eventos3.pkl', 'rb') as load_file:
-        eventos_dic = pickle.load(load_file)
-        #print(eventos_dic)
-except:
-    pass
 
 
 
 try:
-    with open('lista de eventos33.pkl', 'rb') as inp:
-        eventos_array = pickle.load(inp)
-        #print(eventos_array)
+    with open('lista de eventos.json', 'r') as file:
+        json_obj = json.loads(file.read())
+        eventos_dic.update(json_obj)
 except:
     pass
+
 
 
 
@@ -67,16 +59,13 @@ class Evento:
         return self.ano
 
 
+    def add_to_dict(self):
+        evento_obj = {'nome': self.nome, 'dia': self.dia, 'mes': self.mes, 'ano': self.ano}
+        #eventos_dic.update(evento_obj)
+        eventos_dic["Eventos"].append(evento_obj)
 
-def save_object(obj, filename):
-    with open(filename, 'wb') as outp:  # Overwrites any existing file.
-        pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
 
-def load_object(obj, filename):
-    with open(filename, 'rb') as f:
-        obj = pickle.load(f)
-    print(obj.GetInfo())
 
 
 def o1(): # Adicionar evento
@@ -88,12 +77,14 @@ def o1(): # Adicionar evento
     a = int(input("Insira o ano do evento:"))
 
     obj = Evento(nome, d, m, a)
-    eventos_array.append(obj)
-    eventos_dic.update({nome:[d, m, a]})
+    obj.add_to_dict()
 
-    file_name = input("Introduza o nome do ficheiro para este objeto:")
 
-    save_object(obj, f"{file_name}")
+    #eventos_dic["Eventos"].append([nome, d, m, a])
+
+    #file_name = input("Introduza o nome do ficheiro para este objeto:")
+
+    #save_object(obj, f"{file_name}")
 
 
     print("Evento adicionado!")
@@ -102,50 +93,13 @@ def o1(): # Adicionar evento
 
 def o2(): # Visualizar datas
     print(eventos_dic)
-    print(eventos_array)
-
-    #print(eventos_array)
-    evento_mais_proximo = ""
-
-
-
-    # for evento in eventos_array:
-    #     if tdn > Evento.GetAno():
-    #         evento_mais_proximo = evento.nome
-    #         break
-    #     elif tdn == evento.ano:
-    #         if tdm > evento.mes:
-    #             evento_mais_proximo = evento.nome
-    #             break
-    #         elif tdm == evento.mes:
-    #             if tdd > evento.dia:
-    #                 evento_mais_proximo = evento.nome
-    #                 break
-    #         elif tdm < evento.mes:
-    #             evento_mais_proximo = evento.nome
-    #
-    #
-    # print(evento_mais_proximo)
 
 
 
 
-    # fig, axs = plt.subplots(2,2)
-    # axs[0, 0].bar()
-    # axs[0, 0].set_title("Tempo restante")
-    #
-    # fig.tight_layout()
-    # plt.show()
 
 
 
-
-def o3():
-
-    o = input("insira o nome do objeto:")
-    fn = input("Insira o nome do ficheiro do objeto:")
-
-    load_object(o, fn)
 
 
 
@@ -159,7 +113,6 @@ while opc != "exit":
     print("==============================================================")
     print("[1] - Adicionar evento")
     print("[2] - Visualizar eventos")
-    print("[3] - Load objeto(evento)")
     print("[exit] - Sair")
     print("==============================================================")
 
@@ -169,15 +122,12 @@ while opc != "exit":
         o1()
     elif opc == "2":
         o2()
-    elif opc == "3":
-        o3()
     elif opc == "exit":
         print("\nA sair...")
 
-        with open('lista de eventos3.pkl', 'wb') as file:
-            pickle.dump(eventos_dic, file)
-
-        #save_object(eventos_array, 'lista de eventos33.pkl')
+        json_string = json.dumps(eventos_dic, indent=2)
+        with open('lista de eventos.json', 'w') as file:
+            file.write(json_string)
 
     else:
         print("\nOpção inválida")
