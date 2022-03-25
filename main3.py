@@ -80,21 +80,16 @@ def o1(): # Adicionar evento
     obj.add_to_dict()
 
 
-    #eventos_dic["Eventos"].append([nome, d, m, a])
-
-    #file_name = input("Introduza o nome do ficheiro para este objeto:")
-
-    #save_object(obj, f"{file_name}")
-
 
     print("Evento adicionado!")
-
-
+    print(eventos_dic)
+    print(eventos_dic['Eventos'][0]['nome'])
 
 def o2(): # Visualizar datas
     print(eventos_dic)
 
-
+    for i in eventos_dic['Eventos']:
+        print(i)
 
 
 
