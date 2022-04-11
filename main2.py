@@ -1,9 +1,7 @@
-# Version without classes
+# Version without classes just normal dict and txt file
 
 
 from datetime import date
-import datetime
-import pickle
 import os
 import datetime
 import platform
@@ -53,6 +51,17 @@ if os.path.isfile(ficheiro):
 
 
 
+def remover_repetidos(replist):
+    cleanlist = []
+
+    for element in replist:
+        if element not in cleanlist:
+            cleanlist.append(element)
+
+    return cleanlist
+
+
+
 def o1(): # Adicionar evento
 
 
@@ -69,7 +78,7 @@ def o1(): # Adicionar evento
 
 def o2():  # Visualizar datas
     next_eventos = []
-    #print(eventos_dic)
+    print(eventos_dic)
 
     # for i in eventos_dic:
     #     print(len(eventos_dic[i]))
@@ -130,10 +139,16 @@ def o2():  # Visualizar datas
     # print(nxev)
     # print('\n'.join(map(str, nxev)))
 
+    # nxev2 = list(tuple(set(nxev)))
+    # print(nxev2)
+
+    nxevClean = remover_repetidos(nxev)
+    # print(nxevClean)
+
     print("\n")
 
     count = 1
-    for e in nxev:
+    for e in nxevClean:
         dias = eventos_dic[e][3]
         print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias).rstrip("00:00:00"), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
         count += 1

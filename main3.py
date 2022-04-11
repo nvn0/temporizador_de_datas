@@ -1,11 +1,9 @@
-# Version with normal clases
+# Version with normal classes, dict and json file
 
+from tabulate import tabulate
 import json
-import numpy as np
-import matplotlib.pyplot as plt
-import os
 import datetime
-
+import pandas as pd
 
 
 eventos_dic = {}
@@ -83,7 +81,7 @@ def o1(): # Adicionar evento
 
     print("Evento adicionado!")
     print(eventos_dic)
-    print(eventos_dic['Eventos'][0]['nome'])
+    #print(eventos_dic['Eventos'][0]['nome'])
 
 def o2(): # Visualizar datas
     print(eventos_dic)
@@ -92,7 +90,10 @@ def o2(): # Visualizar datas
         print(i)
 
 
+    df = pd.DataFrame(eventos_dic)
+    #print(df)
 
+    print(tabulate(df, headers="keys", tablefmt="fancy_grid", showindex="always"))
 
 
 
