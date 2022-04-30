@@ -64,11 +64,30 @@ def remover_repetidos(replist):
 
 def o1(): # Adicionar evento
 
-
     nome = input("Insira o nome do evento:")
-    d = int(input("Insira o dia do evento:"))
-    m = int(input("Insira o mes do evento:"))
-    a = int(input("Insira o ano do evento:"))
+    while True:
+        try:
+            d = int(input("Insira o dia do evento (1-31):"))
+            if d > 0 and d <= 31:
+                break
+        except:
+            print("Opção invalida! - Introduza apenas números entre 1 e 31.")
+
+    while True:
+        try:
+            m = int(input("Insira o mes do evento (1-12):"))
+            if m > 0 and m <= 12:
+                break
+        except:
+            print("Opção invalida! - Introduza apenas números entre 1 e 12.")
+
+    while True:
+        try:
+            a = int(input("Insira o ano do evento:"))
+            if a >= tdn:
+                break
+        except:
+            print(f"Opção invalida! - Introduza apenas números maaiores ou iguais a {tdn}")
 
     eventos_dic.update({nome: [d, m, a]})
     print(eventos_dic)
@@ -149,7 +168,7 @@ def o2():  # Visualizar datas
     for i in eventos_dic:
         if eventos_dic[i][3] < eventos_dic[evento_mais_proximo][3]:
             evento_mais_proximo = i
-    print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip("00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
+    print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
 
 
     next_eventos.sort()
@@ -174,7 +193,7 @@ def o2():  # Visualizar datas
     count = 1
     for e in nxevClean:
         dias = eventos_dic[e][3]
-        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias).rstrip("00:00:00"), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
+        print(count, Fore.YELLOW + e, "dentro de", Fore.YELLOW + str(dias).rstrip(", 00:00:00"), "(dia:",eventos_dic[e][0], "/",eventos_dic[e][1], "/",eventos_dic[e][2], ")")
         count += 1
         #print(e, "dentro de", eventos_dic[e][3])
 
