@@ -96,7 +96,31 @@ def o2():  # Visualizar datas
         else:
             continue
 
-    #print(eventos_dic)
+        # print(eventos_dic)
+        # for i in eventos_dic.keys():
+        #     print(int(str(eventos_dic[i][3]).rstrip("days, 00:00:00")))
+
+        # Remover Eventos passados (version 1):
+        for i in list(eventos_dic.keys()):
+            if eventos_dic[i][2] < tdn:
+                eventos_dic.pop(i)
+
+            elif eventos_dic[i][2] == tdn:
+                if eventos_dic[i][1] < tdm:
+                    eventos_dic.pop(i)
+
+                elif eventos_dic[i][1] == tdm:
+                    if eventos_dic[i][0] < tdd:
+                        eventos_dic.pop(i)
+
+        # Remover Eventos passados (version 2):
+        # for i in list(eventos_dic.keys()):
+        #     y = int(str(eventos_dic[i][3]).rstrip("days, 00:00:00"))
+        #     if y < 0:
+        #         eventos_dic.pop(i)
+
+
+        #print(eventos_dic)
 
 
 
