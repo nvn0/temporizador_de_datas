@@ -168,7 +168,10 @@ def o2():  # Visualizar datas
     for i in eventos_dic:
         if eventos_dic[i][3] < eventos_dic[evento_mais_proximo][3]:
             evento_mais_proximo = i
-    print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
+    if eventos_dic[evento_mais_proximo][0] == tdd and eventos_dic[evento_mais_proximo][1] == tdm and eventos_dic[evento_mais_proximo][2] == tdn:
+        print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "HOJE!", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2])
+    else:
+        print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
 
 
     next_eventos.sort()
