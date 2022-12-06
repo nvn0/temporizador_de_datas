@@ -94,24 +94,28 @@ def o1(): # Adicionar evento
 
 
 
-
+next_eventos = []
 def o2():  # Visualizar datas
-    next_eventos = []
-    print(eventos_dic)
+    #next_eventos = []
+    #print(eventos_dic)
 
     # for i in eventos_dic:
     #     print(len(eventos_dic[i]))
 
 
     # adicionar tempo as datas
-    for i in eventos_dic:
-        if (len(eventos_dic[i])) < 4:
-            x = date(eventos_dic[i][2], eventos_dic[i][1], eventos_dic[i][0])
-            x2 = date(tdn, tdm, tdd)
-            dif = x - x2
-            eventos_dic[i].append(dif)
-            next_eventos.append(dif)
-            #print(dif)
+    for u in eventos_dic.values():
+        if (len(u)) < 4:
+            for i in eventos_dic:
+                #if (len(eventos_dic[i])) < 4:
+                x = date(eventos_dic[i][2], eventos_dic[i][1], eventos_dic[i][0])
+                x2 = date(tdn, tdm, tdd)
+                dif = x - x2
+                eventos_dic[i].append(dif)
+                next_eventos.append(dif)
+                    #print(dif)
+               # else:
+                    #continue
         else:
             continue
 
