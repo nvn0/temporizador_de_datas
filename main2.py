@@ -52,7 +52,7 @@ def carregar_dados(ficheiro):
             linha = f.readline().strip()
         f.close()
 
-
+carregar_dados(ficheiro)
 
 def remover_repetidos(replist):
     cleanlist = []
