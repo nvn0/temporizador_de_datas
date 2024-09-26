@@ -38,16 +38,19 @@ tdn = int(tday.strftime('%Y'))
 
 ficheiro = "lista de datas.txt"
 
-if os.path.isfile(ficheiro):
+def carregar_dados(ficheiro):
 
-    f = open(ficheiro, "r")
-    linha = f.readline().strip()
 
-    while linha != "":
-        aux = linha.split("/")
-        eventos_dic.update({aux[0]: [int(aux[1]), int(aux[2]), int(aux[3])]})
+    if os.path.isfile(ficheiro):
+
+        f = open(ficheiro, "r")
         linha = f.readline().strip()
-    f.close()
+
+        while linha != "":
+            aux = linha.split("/")
+            eventos_dic.update({aux[0]: [int(aux[1]), int(aux[2]), int(aux[3])]})
+            linha = f.readline().strip()
+        f.close()
 
 
 
@@ -90,7 +93,8 @@ def o1(): # Adicionar evento
             print(f"Opção invalida! - Introduza apenas números maaiores ou iguais a {tdn}")
 
     eventos_dic.update({nome: [d, m, a]})
-    print(eventos_dic)
+    #print(eventos_dic)
+    print("Evento adicionado!")
 
 
 
@@ -178,9 +182,9 @@ def o2():  # Visualizar datas
             if eventos_dic[i][3] < eventos_dic[evento_mais_proximo][3]:
                 evento_mais_proximo = i
         if eventos_dic[evento_mais_proximo][0] == tdd and eventos_dic[evento_mais_proximo][1] == tdm and eventos_dic[evento_mais_proximo][2] == tdn:
-            print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "HOJE!", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2])
+            print("\n O evento mais próximo é o", Fore.RED + evento_mais_proximo, "HOJE!", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2])
         else:
-            print("\nO evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2],")")
+            print("\n O evento mais próximo é o", Fore.RED + evento_mais_proximo, "dentro de", Fore.RED + str(eventos_dic[evento_mais_proximo][3]).rstrip(", 00:00:00"), "(dia:", eventos_dic[evento_mais_proximo][0], "/", eventos_dic[evento_mais_proximo][1], "/", eventos_dic[evento_mais_proximo][2])
     except:
         print("Não existem eventos agendados.")
 
@@ -212,7 +216,38 @@ def o2():  # Visualizar datas
         #print(e, "dentro de", eventos_dic[e][3])
 
 
+def o3():
+    #atualizar datas de aniversario apartir de um ficheiro, recomendado correr no inicio doa ano
+    
+    eventos_backup = {}
+    
+    ficheiro_backup = "lista de eventos_backup.txt"
+    if os.path.isfile(ficheiro_backup):
 
+        f = open(ficheiro_backup, "r")
+        linha = f.readline().strip()
+
+        while linha != "":
+            aux = linha.split("/")
+            eventos_backup.update({aux[0]: [int(aux[1]), int(aux[2]), int(tdn)]}) # é inserido o ano atual
+            linha = f.readline().strip()
+        f.close()  
+
+
+    fb = open(ficheiro_backup, "w")
+    for p in eventos_backup:
+        fb.write(p + "/" + str(eventos_backup[p][0]) + "/" + str(eventos_backup[p][1]) + "/" + str(eventos_backup[p][2]) + "\n")
+
+    fb.close()
+
+    # atualizar ficheiro principal
+    fp = open(ficheiro, "w")
+    for p in eventos_backup:
+        fp.write(p + "/" + str(eventos_backup[p][0]) + "/" + str(eventos_backup[p][1]) + "/" + str(eventos_backup[p][2]) + "\n")
+
+    fp.close()
+    
+    carregar_dados(ficheiro)
 
 
 opc = ""
@@ -223,6 +258,7 @@ while opc != "exit":
     print("==============================================================")
     print("[1] - Adicionar Evento")
     print("[2] - Visualizar Eventos")
+    print(" [3] - Carregar eventos (aniversarios) apartir de um ficheiro")
     print("[exit] - Sair")
     print("==============================================================")
 
@@ -238,7 +274,11 @@ while opc != "exit":
         os.system(clear_command)
         print("Visualizar Eventos")
         o2()
-    elif opc == "exit":
+    elif opc == "3":
+        os.system(clear_command)
+        print("Carregar eventos apartir de um ficheiro")
+        o3()
+    elif opc == "exit" or opc == "0":
         print("\nA sair...")
 
         # with open('lista de eventos2.pkl', 'wb') as file:
